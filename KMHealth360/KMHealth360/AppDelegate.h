@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "KMHRootViewContronller.h"
+#import "KMHNavHomeViewController.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
-
+@property (nonatomic, strong) KMHRootViewContronller *rootTabBarController;
+@property (nonatomic, strong) UINavigationController *navHomeVC;
 @end
 

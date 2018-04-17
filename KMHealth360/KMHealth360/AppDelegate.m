@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-
 @interface AppDelegate ()
 
 @end
@@ -17,9 +16,56 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    
+    self.rootTabBarController = [[KMHRootViewContronller alloc] init];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+    self.window.rootViewController = self.rootTabBarController;
+    
+    
+//    self.navHomeVC = [[UINavigationController alloc] initWithRootViewController:self.rootTabBarController];
+//    [self.rootTabBarController presentViewController:self.navHomeVC animated:NO completion:nil];
+    
+    
+    [self bat_setXcodeColorsConfigration];
     return YES;
 }
 
+- (void)bat_setXcodeColorsConfigration {
+    //开启使用 XcodeColors
+    setenv("XcodeColors", "YES", 0);
+    //检测
+    char *xcode_colors = getenv("XcodeColors");
+    if (xcode_colors && (strcmp(xcode_colors, "YES") == 0))
+    {
+        // XcodeColors is installed and enabled!
+        NSLog(@"XcodeColors is installed and enabled");
+    }
+    //开启DDLog 颜色
+    [[DDTTYLogger sharedInstance] setColorsEnabled:YES];
+    [[DDTTYLogger sharedInstance] setForegroundColor:[UIColor blueColor] backgroundColor:nil forFlag:DDLogFlagVerbose];
+    
+    //配置DDLog
+    [DDLog addLogger:[DDTTYLogger sharedInstance]]; // TTY = Xcode console
+    [DDLog addLogger:[DDASLLogger sharedInstance]]; // ASL = Apple System Logs
+    
+    DDFileLogger *fileLogger = [[DDFileLogger alloc] init]; // File Logger
+    fileLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
+    fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
+    [DDLog addLogger:fileLogger];
+    
+    
+    NSLog(@"NSLog");
+    DDLogVerbose(@"Verbose");
+    DDLogDebug(@"Debug");
+    DDLogWarn(@"Warn");
+    DDLogError(@"Error");
+    
+    DDLogError(@"%@",NSHomeDirectory());
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

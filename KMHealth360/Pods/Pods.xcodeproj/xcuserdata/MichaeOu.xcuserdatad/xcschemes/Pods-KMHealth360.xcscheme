@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5C6224B32BBA4A83DB9CDCED133737B8"
+               BlueprintIdentifier = "04E92283A7D22DDD8DBC28429EE83780"
                BlueprintName = "Pods-KMHealth360"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "libPods-KMHealth360.a">
